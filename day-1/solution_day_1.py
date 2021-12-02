@@ -7,8 +7,7 @@ def get_input_data() -> List[int]:
     return data
 
 
-def get_increased_count() -> int:
-    input_data = get_input_data()
+def get_increased_count(input_data: List[int]) -> int:
     index_to_value = {}
 
     comparisons = []
@@ -21,4 +20,5 @@ def get_increased_count() -> int:
 
 
 if __name__ == '__main__':
-    print(get_increased_count())
+    input_data = get_input_data()
+    print(get_increased_count(input_data))
