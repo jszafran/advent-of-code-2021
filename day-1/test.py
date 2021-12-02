@@ -1,6 +1,6 @@
 import unittest
 
-from solution_day_1 import get_increased_count
+from solution import get_increased_count
 
 
 class TestDay1Algorithm(unittest.TestCase):
@@ -14,9 +14,9 @@ class TestDay1Algorithm(unittest.TestCase):
         inp3 = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
         self.assertEqual(7, get_increased_count(inp3))
 
-        inp4 = [5,4,3,2,1]
+        inp4 = [5, 4, 3, 2, 1]
         self.assertEqual(0, get_increased_count(inp4))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

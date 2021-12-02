@@ -15,10 +15,10 @@ def get_increased_count(input_data: List[int]) -> int:
         index_to_value[i] = v
         if i == 0:
             continue
-        comparisons.append(v > index_to_value[i-1])
+        comparisons.append(v > index_to_value[i - 1])
     return sum(comparisons)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     input_data = get_input_data()
     print(get_increased_count(input_data))
