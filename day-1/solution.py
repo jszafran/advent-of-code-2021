@@ -19,6 +19,12 @@ def get_increased_count(input_data: List[int]) -> int:
     return sum(comparisons)
 
 
+def get_increased_count_for_sliding_window(input_data: List[int]) -> int:
+    sums = [sum(input_data[i : i + 3]) for i in range(0, len(input_data) - 2)]
+    return get_increased_count(sums)
+
+
 if __name__ == "__main__":
     input_data = get_input_data()
     print(get_increased_count(input_data))
+    print(get_increased_count_for_sliding_window(input_data))
