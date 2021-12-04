@@ -30,24 +30,19 @@ class Submarine:
     depth: int = 0
     horizontal_position: int = 0
 
-    def handle_down_command(self, value: int) -> None:
+    def down(self, value: int) -> None:
         self.aim += value
 
-    def handle_up_command(self, value: int) -> None:
+    def up(self, value: int) -> None:
         self.aim -= value
 
-    def handle_forward_command(self, value: int) -> None:
+    def forward(self, value: int) -> None:
         self.horizontal_position += value
         self.depth += self.aim * value
 
     def handle_string_command(self, s: str) -> None:
         command, val = parse_line(s)
-        command_mapping = {
-            "down": self.handle_down_command,
-            "up": self.handle_up_command,
-            "forward": self.handle_forward_command,
-        }
-        command_mapping[command](val)
+        getattr(self, command)(val)
 
     @property
     def final_position(self) -> int:
