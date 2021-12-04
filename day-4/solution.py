@@ -80,7 +80,7 @@ def parse_game_data(path: str) -> Tuple[List[int], List[BingoBoard]]:
     return drawn_numbers, boards
 
 
-def calculate_winning_board_score_from_file(path: str) -> int:
+def calculate_first_winning_board_score_from_file(path: str) -> int:
     all_drawn_numbers, boards = parse_game_data(path)
 
     for i in range(5, len(all_drawn_numbers)):
@@ -90,6 +90,35 @@ def calculate_winning_board_score_from_file(path: str) -> int:
                 return board.get_board_score(drawn_numbers)
 
 
+def calculate_last_winning_board_score_from_file(path: str) -> int:
+    all_drawn_numbers, boards = parse_game_data(path)
+
+    winning_boards = []
+    winning_drawn_numbers = []
+    last_winning_board_found = False
+
+    # TODO: it works, but feels complicated? Refactor candidate
+    while not last_winning_board_found:
+        for i in range(5, len(all_drawn_numbers)):
+            for board in boards:
+                drawn_numbers = all_drawn_numbers[:i]
+                if board.has_won(drawn_numbers):
+                    if board not in winning_boards:
+                        winning_boards.append(board)
+                        winning_drawn_numbers.append(drawn_numbers)
+                    else:
+                        last_winning_board_found = True
+
+    last_winning_board = winning_boards[-1]
+    last_winning_drawn_numbers = winning_drawn_numbers[-1]
+    return last_winning_board.get_board_score(last_winning_drawn_numbers)
+
+
 if __name__ == "__main__":
-    winning_board_score = calculate_winning_board_score_from_file("input.txt")
-    print(winning_board_score)
+    input_path = "input.txt"
+    first_winning_board_score = calculate_first_winning_board_score_from_file(
+        input_path
+    )
+    last_winning_board_score = calculate_last_winning_board_score_from_file(input_path)
+    print(first_winning_board_score)
+    print(last_winning_board_score)
