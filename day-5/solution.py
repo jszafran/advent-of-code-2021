@@ -33,6 +33,10 @@ class Line:
         return self.start.x == self.end.x
 
     @property
+    def is_diagonal(self) -> bool:
+        return abs(self.start.x - self.end.x) == abs(self.start.y - self.end.y)
+
+    @property
     def all_points(self) -> List[Point]:
         if self.is_vertical:
             step = 1 if self.start.y < self.end.y else -1
@@ -46,10 +50,19 @@ class Line:
                 Point(x=i, y=self.start.y)
                 for i in range(self.start.x, self.end.x + step, step)
             ]
+        elif self.is_diagonal:
+            # TODO: Can it be somehow simplified?
+            x_step = 1 if self.start.x < self.end.x else -1
+            y_step = 1 if self.start.y < self.end.y else -1
+            x_coords = (x for x in range(self.start.x, self.end.x + x_step, x_step))
+            y_coords = (y for y in range(self.start.y, self.end.y + y_step, y_step))
+            return [
+                Point(x=coords[0], y=coords[1]) for coords in zip(x_coords, y_coords)
+            ]
 
 
-def part_1_solution(lines: List[Line]) -> int:
-    filtered_lines = [line for line in lines if line.is_vertical or line.is_horizontal]
+def get_solution(lines: List[Line], condition) -> int:
+    filtered_lines = list(filter(condition, lines))
     points = [point for line in filtered_lines for point in line.all_points]
     return sum(1 for v in Counter(points).values() if v >= 2)
 
@@ -62,5 +75,10 @@ def get_data_from_text_file(path: str) -> List[Line]:
 
 
 if __name__ == "__main__":
+    part_1_condition = lambda line: line.is_vertical or line.is_horizontal  # noqa
+    part_2_condition = (
+        lambda line: line.is_vertical or line.is_horizontal or line.is_diagonal
+    )  # noqa
     lines_from_file = get_data_from_text_file("input.txt")
-    print(part_1_solution(lines_from_file))
+    print(get_solution(lines_from_file, part_1_condition))
+    print(get_solution(lines_from_file, part_2_condition))
