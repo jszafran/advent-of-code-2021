@@ -1,8 +1,8 @@
 from typing import List
 
 
-def get_input_data() -> List[int]:
-    with open("aoc-day-1-input.txt", "rt") as f:
+def get_input_data(path: str) -> List[int]:
+    with open(path, "rt") as f:
         data = [int(line) for line in f.readlines()]
     return data
 
@@ -25,6 +25,6 @@ def get_increased_count_for_sliding_window(input_data: List[int]) -> int:
 
 
 if __name__ == "__main__":
-    input_data = get_input_data()
+    input_data = get_input_data("aoc-day-1-input.txt")
     print(get_increased_count(input_data))
     print(get_increased_count_for_sliding_window(input_data))
