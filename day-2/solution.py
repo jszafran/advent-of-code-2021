@@ -7,7 +7,7 @@ def parse_line(line: str) -> Tuple[str, int]:
     return direction, int(val)
 
 
-def solution(lines: List[str]) -> int:
+def solution_part_1(lines: List[str]) -> int:
     directions_sums = {
         "up": 0,
         "down": 0,
@@ -59,5 +59,5 @@ def solution_part_2(lines: List[str]) -> int:
 if __name__ == "__main__":
     with open("aoc-day-2-input.txt", "rt") as f:
         data = f.readlines()
-    print(solution(data))
+    print(solution_part_1(data))
     print(solution_part_2(data))
