@@ -31,7 +31,7 @@ def get_input(path: str) -> List[int]:
 def solution_part_one(ages: List[int], days_amount: int) -> int:
     tracker = LanternfishGrowthTracker(ages)
 
-    for _ in range(1, days_amount + 1):
+    for _ in range(days_amount):
         tracker.process_day()
 
     return tracker.total_number
