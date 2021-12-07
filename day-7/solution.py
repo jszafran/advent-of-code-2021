@@ -34,10 +34,11 @@ def increase_previous_rate_by_one_algorithm(cur_pos: int, other_pos: int) -> int
 def solution(
     crabs: List[Crab], fuel_consumption_algorithm: Callable[[int, int], int]
 ) -> int:
+    positions = [c.position for c in crabs]
     fuel_consumptions = []
-    max_pos = max([c.position for c in crabs])
+    min_pos, max_pos = min(positions), max(positions)
 
-    for pos in range(0, max_pos):
+    for pos in range(min_pos, max_pos + 1):
         fuel_consumption = sum(
             [
                 c.get_fuel_consumption_for_position_change(
