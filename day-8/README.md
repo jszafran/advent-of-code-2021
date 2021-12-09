@@ -85,6 +85,7 @@ cdfeb fcadb cdfeb cdbaf
 
 After some careful analysis, the mapping between signal wires and segments only make sense in the following configuration:
 
+```
  dddd
 e    a
 e    a
@@ -92,6 +93,7 @@ e    a
 g    b
 g    b
  cccc
+```
 
 So, the unique signal patterns would correspond to the following digits:
 
