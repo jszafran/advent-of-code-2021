@@ -1,6 +1,6 @@
 import unittest
 
-from solution import get_illegal_char_for_line
+from solution import complete_line, get_illegal_char_for_line
 
 
 class TestSuite(unittest.TestCase):
@@ -17,3 +17,10 @@ class TestSuite(unittest.TestCase):
         self.assertIsNone(get_illegal_char_for_line("<([{}])>"))
         self.assertIsNone(get_illegal_char_for_line("[<>({}){}[([])<>]]"))
         self.assertIsNone(get_illegal_char_for_line("(((((((((())))))))))"))
+
+    def test_complete_line(self):
+        self.assertEqual("}}]])})]", complete_line("[({(<(())[]>[[{[]{<()<>>"))
+        self.assertEqual(")}>]})", complete_line("[(()[<>])]({[<{<<[]>>("))
+        self.assertEqual("}}>}>))))", complete_line("(((({<>}<{<{<>}{[]{[]{}"))
+        self.assertEqual("]]}}]}]}>", complete_line("{<[[]]>}<{[{[{[]{()[[[]"))
+        self.assertEqual("])}>", complete_line("<{([{{}}[<[[[<>{}]]]>[]]"))
