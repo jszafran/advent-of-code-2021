@@ -83,7 +83,7 @@ class OctopusBoard:
             oc.energy_level += 1
 
     def trigger_flashing_octopuses(
-        self, coords: List[XYCoords], flashed_coords=None, adjacent_coords=None
+        self, coords: List[XYCoords], flashed_coords=None
     ) -> int:
         if not flashed_coords:
             flashed_coords = set()
