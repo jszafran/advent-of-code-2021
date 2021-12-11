@@ -91,7 +91,7 @@ class OctopusBoard:
             return len(flashed_coords)
         coord = coords[0]
         adjacent_coords = get_adjacent_coordinates(coord)
-        self.increment_energy_levels(list(adjacent_coords))
+        self.increment_energy_levels(adjacent_coords)
         flashed_coords.add(coord)
         coords = [coord for coord in coords[1:] if coord not in flashed_coords]
         coords += [
