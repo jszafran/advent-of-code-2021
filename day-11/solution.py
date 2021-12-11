@@ -60,6 +60,9 @@ def get_adjacent_coordinates(coords: XYCoords) -> List[XYCoords]:
 class OctopusBoard:
     data: Dict[XYCoords, Octopus]
 
+    def is_synchronized(self):
+        return len(set(o.energy_level for o in self.data.values())) == 1
+
     def get_flashing_octopuses_count(self) -> int:
         return sum(1 for oc in self.data.values() if oc.is_flashing)
 
@@ -100,12 +103,17 @@ class OctopusBoard:
 
     def run_simulation(self, steps: int) -> None:
         flashes_count = 0
-        for _ in range(steps):
+        synchronizations = []
+        for step in range(1, steps + 1):
             self.increment_energy_levels()
             flashing_coords = self.get_flashing_octopuses_coords()
             flashes_count += self.trigger_flashing_octopuses(flashing_coords)
             self.reset_flashing_octopuses_energy_levels()
+            if self.is_synchronized():
+                synchronizations.append(step)
         print(f"Flashes count: {flashes_count}")
+        if synchronizations:
+            print(f"First synchronization occured at: {synchronizations[0]}")
 
     @classmethod
     def from_text_file(cls, path: str):
@@ -119,7 +127,7 @@ class OctopusBoard:
 
 
 def part_1_solution(board: OctopusBoard) -> None:
-    board.run_simulation(100)
+    board.run_simulation(300)
 
 
 if __name__ == "__main__":
