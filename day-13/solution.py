@@ -47,7 +47,7 @@ class OrigamiPaper:
 
     def visualize(self) -> None:
         def print_row(row: List[Point]) -> None:
-            print("".join(["." if p in self.points else " " for p in row]))
+            print("".join(["#" if p in self.points else " " for p in row]))
 
         max_x = max(p.x for p in self.points)
         max_y = max(p.y for p in self.points)
