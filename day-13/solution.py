@@ -45,6 +45,18 @@ class OrigamiPaper:
     def visible_points(self) -> int:
         return len(self.points)
 
+    def visualize(self) -> None:
+        def print_row(row: List[Point]) -> None:
+            print("".join(["." if p in self.points else " " for p in row]))
+
+        max_x = max(p.x for p in self.points)
+        max_y = max(p.y for p in self.points)
+        for y in range(max_y + 1):
+            row = []
+            for x in range(max_x + 1):
+                row.append(Point(x=x, y=y))
+            print_row(row)
+
 
 def get_input_data(path: str) -> Tuple[List[FoldCommand], OrigamiPaper]:
     def parse_point_line(line: str) -> Point:
@@ -68,6 +80,11 @@ def part_1_solution(
 ) -> None:
     paper_1 = origami_paper.apply_fold_command(fold_commands[0])
     print(paper_1.apply_fold_command(commands[0]).visible_points)
+
+    folded_paper = origami_paper
+    for command in commands:
+        folded_paper = folded_paper.apply_fold_command(command)
+    folded_paper.visualize()
 
 
 if __name__ == "__main__":
