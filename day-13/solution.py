@@ -20,7 +20,7 @@ class OrigamiPaper:
 
     def apply_fold_command(self, c: FoldCommand) -> "OrigamiPaper":
         fold_pos = c.position
-        if c.axis == "x":
+        if c.axis == "y":
             unaltered_points = {
                 Point(x=p.x, y=p.y) for p in self.points if p.y < fold_pos
             }
@@ -30,7 +30,7 @@ class OrigamiPaper:
                 if p.y > fold_pos
             }
             return OrigamiPaper(points=unaltered_points | altered_points)
-        if c.axis == "y":
+        if c.axis == "x":
             unaltered_points = {
                 Point(x=p.x, y=p.y) for p in self.points if p.x < fold_pos
             }
@@ -39,7 +39,7 @@ class OrigamiPaper:
                 for p in self.points
                 if p.x > fold_pos
             }
-            return OrigamiPaper(unaltered_points | altered_points)
+            return OrigamiPaper(points=unaltered_points | altered_points)
 
     @property
     def visible_points(self) -> int:
@@ -59,14 +59,15 @@ def get_input_data(path: str) -> Tuple[List[FoldCommand], OrigamiPaper]:
         data = [line.replace("\n", "") for line in f.readlines()]
     split_pos = data.index("")
     points = [parse_point_line(p_line) for p_line in data[:split_pos]]
-    commands = [parse_command_line(c_line) for c_line in data[split_pos + 1 :]]
+    commands = [parse_command_line(c_line) for c_line in data[split_pos + 1 :]]  # noqa
     return commands, OrigamiPaper(points=set(points))
 
 
 def part_1_solution(
     origami_paper: OrigamiPaper, fold_commands: List[FoldCommand]
 ) -> None:
-    print(origami_paper.apply_fold_command(fold_commands[0]).visible_points)
+    paper_1 = origami_paper.apply_fold_command(fold_commands[0])
+    print(paper_1.apply_fold_command(commands[0]).visible_points)
 
 
 if __name__ == "__main__":
