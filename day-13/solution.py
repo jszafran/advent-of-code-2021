@@ -75,9 +75,7 @@ def get_input_data(path: str) -> Tuple[List[FoldCommand], OrigamiPaper]:
     return commands, OrigamiPaper(points=set(points))
 
 
-def part_1_solution(
-    origami_paper: OrigamiPaper, fold_commands: List[FoldCommand]
-) -> None:
+def solution(origami_paper: OrigamiPaper, fold_commands: List[FoldCommand]) -> None:
     paper_1 = origami_paper.apply_fold_command(fold_commands[0])
     print(paper_1.apply_fold_command(commands[0]).visible_points)
 
@@ -90,4 +88,4 @@ def part_1_solution(
 if __name__ == "__main__":
     input_path = "input.txt"
     commands, origami_paper = get_input_data(input_path)
-    part_1_solution(origami_paper, commands)
+    solution(origami_paper, commands)
